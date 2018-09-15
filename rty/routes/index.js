@@ -137,6 +137,50 @@ router.post('/newuser',urlencodedParser,function (req,res,next) {
 
 
 });
+router.get("/qwe",urlencodedParser,function (req,res) {
+
+    var tendn=req.query.tendn;
+    var tendn1=tendn.toLowerCase();
+    var tenname=req.query.tenname;
+    var psw=req.query.psw;
+    var s=req.query.s;
+    var mess="";
+    var params2={
+        TableName:"User",
+        KeyConditionExpression:"#name=:ten",
+        ExpressionAttributeNames:{
+            "#name":"userName"
+        },
+        ExpressionAttributeValues:{
+            ":ten":tendn1
+        }
+    };
+    var params3 = {
+        TableName:"User",
+        Item:{
+            "userName":tendn1,
+            "info":{
+                "password": psw,
+                "nickname": tenname,
+                "joinDate": s
+            }
+        }
+    };
+    docClient.put(params3, function(err, data) {
+        if (err) {
+            console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
+
+
+        } else {
+            console.log("Added item:", JSON.stringify(data, null, 2));
+            mess+="thanh cong";
+            res.render("qwe",{d:"thay cong"+tendn1});
+        }
+    });
+
+
+
+});
 router.get('/chitiet',urlencodedParser,function (req,res,next) {
 
     var b=[];
