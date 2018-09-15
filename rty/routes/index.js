@@ -99,8 +99,9 @@ router.get("/qwe",urlencodedParser,function (req,res) {
     var tendn1=tendn.toLowerCase();
     var tenname=req.query.tenname;
     var psw=req.query.psw;
-    var s=req.query.s;
-    var mess="";
+    var d=new Date();
+
+    var mess=d.getDay()+"-"+d.getMonth()+"-"+d.getFullYear();
     var params2={
         TableName:"User",
         KeyConditionExpression:"#name=:ten",
@@ -118,21 +119,33 @@ router.get("/qwe",urlencodedParser,function (req,res) {
             "info":{
                 "password": psw,
                 "nickname": tenname,
-                "joinDate": s
+                "joinDate": mess
             }
         }
     };
-    docClient.put(params3, function(err, data) {
-        if (err) {
-            console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
-            res.render("qwe",{d:"khong thanh cong"+tendn1});
-
-        } else {
-            console.log("Added item:", JSON.stringify(data, null, 2));
-            mess+="thanh cong";
-            res.render("qwe",{d:"thay cong"+tendn1});
+    docClient.query(params2,function (err,data) {
+        if(err){
+            console.log(err);
         }
-    });
+        else{
+            data.Items.forEach(function (item) {
+                if(item.userName==tendn1){
+                    return  res.render("qwe",{d:"khong thanh cong"+tendn1});
+                }
+
+                docClient.put(params3, function(err, data) {
+
+                    console.log("Added item:", JSON.stringify(data, null, 2));
+                    mess+="thanh cong";
+                    res.render("qwe",{d:"thanh cong"+tendn1});
+
+                });
+
+            })
+        }
+
+    })
+
 
 
 

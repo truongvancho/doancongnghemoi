@@ -9,7 +9,7 @@ AWS.config.secretAccessKey="8f4wPRVRDx5TRveyZpFeiXKq9vaJI/YKQOrao584";
 var dynamodb = new AWS.DynamoDB();
 
 var users = {
-    TableName : "Users",
+    TableName : "User",
     KeySchema: [
         { AttributeName: "userName", KeyType: "HASH"}
 
