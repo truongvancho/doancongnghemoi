@@ -1,0 +1,370 @@
+<!doctype HTML>
+<HTML>
+<Head>
+    <link rel="stylesheet" type="text/css" href="css\layout.css"
+          medial="all" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+</Head>
+
+<body>
+<div id="menu">
+    <div id="wrap">
+
+        <header>
+
+            <div class="inner relative">
+
+                <a class="logo" href="#"><img src="images\logoco.png" width="70px" height="50px" alt="Comfortable"></a>
+
+                <a id="menu-toggle" class="button dark" href="#"><i class="icon-reorder"></i></a>
+
+                <nav id="navigation">
+
+                    <ul id="main-menu">
+
+                        <li class="current-menu-item"><a href="#">Home</a></li>
+
+                        <li class="parent">
+
+                            <a href="#">Bài Hát</a>
+
+                            <ul class="sub-menu">
+
+                                <li><a href="#"><i class="icon-wrench"></i> Châu Á</a></li>
+
+                                <li><a href="#"><i class="icon-credit-card"></i> Châu Âu</a></li>
+
+
+
+                                <li>
+
+                                    <ul class="sub-menu">
+
+                                        <li><a href="#">Full Width</a></li>
+
+                                        <li><a href="#">Left Sidebar</a></li>
+
+
+
+                                    </ul>
+
+                                </li>
+
+                            </ul>
+
+                        </li>
+
+                        <li><a href="#">Playlist</a></li>
+
+
+                        <li class="parent">
+
+                            <a href="#">Chủ Đề</a>
+
+
+                            <ul class="sub-menu">
+
+                                <li><a href="#">Large Image</a></li>
+
+                                <li><a href="#">Medium Image</a></li>
+
+                                <li><a href="#">Masonry</a></li>
+
+
+
+                            </ul>
+
+                        </li>
+
+                        <li><a href="#"><img src="images\if_Login_73221.png" width="25px" height="25px"> </a>
+
+                            <ul class="sub-menu">
+
+                                <li><button type="button" class="btn btn-dark" onclick="document.getElementById('id01').style.display='block'" >Đăng nhập</button></li>
+
+                                <li><button type="button" class="btn btn-dark" onclick="document.getElementById('id02').style.display='block'"><i class="icon-credit-card"></i>Đăng ký</button></li>
+
+                            </ul>
+                        </li>
+                        <li><a href="..\Web\upload.html"><img src="images\up.png" width="25px" height="25px"> </a></li>
+                        <li>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Search">
+                                <div class="input-group-append">
+                                    <button class="btn btn-success"  style="height:40px;margin-top:5px;" type="submit">Go</button>
+                                </div>
+                            </div>	</li>
+
+                    </ul>
+
+                </nav>
+
+                <div class="clear"></div>
+
+            </div>
+
+        </header>
+    </div>
+
+</div>
+
+
+<div id="nav">
+    <div id="navleft">
+        <%video.forEach(function (i) {%>
+        <h5 style="margin-left:70px;"><%=i.info.musicName%>-<%=i.info.author%></h5>
+
+        <div style="background-color:#FFFAFA;margin-right:40px;margin-left:5px;height:530px;">
+            <video controls style="margin-left:100px;margin-top:40px;width:700px;">
+                <source src="<%=i.url%>" type="video/mp4">
+
+
+            </video>
+            <div style="position:relative;top:-120px;width:77%;margin-left:100px;background:rgba(0, 0, 0, 0.5);color: #f1f1f1;height:auto;">
+                <h6>Bài hát:</h6>
+
+
+                <%=i.info.musicName%>-<%=i.info.author%>
+
+            </div>
+            <span style="margin-left:100px;"><a href="#" style="text-decoration:none;"><img src="images\bcbs.jpg" style="width:35px;height:30px;"/>Upload bởi:Trương Cô Nương</a></span>
+            <span style="margin-left:50px;"><a href="#"  style="text-decoration:none;"><img src="images\dowload.png" style="width:35px;height:30px;text-decoration:none;"/>Tải nhạc</a></span>
+            <span style="margin-left:50px;"><a href="#"  style="text-decoration:none;"><img src="images\them.png" style="width:35px;height:30px;text-decoration:none;"/>Thêm vào</a></span>
+            <span style="margin-left:50px;"><a href="#"  style="text-decoration:none;"><img src="images\share.png" style="width:35px;height:30px;text-decoration:none;"/>Chia sẻ</a></span>
+
+        </div>
+        <div style="width:710px;border:1px solid gray;margin-left:100px;">
+      <span><h6>Lời bài hát: <%=i.info.musicName%></h6>
+	  Nhạc sĩ:<%=i.info.author%>
+
+	  </span><br/>
+
+            <hr/>
+            <p>Bài hát:Way Back Home</p><hr/>
+            Dừng lại một chút thôi, người ngủ say anh đang tìm kiếm<br>
+            Chẳng còn điều gì khó khăn để cản ngăn anh tới bên em!<br/>
+            Dù ở đâu anh củng sẽ trở về, đừng buồn nhé em <br/>
+            Để gặp được chính em là điều đầu tiên khiến anh trở về nhà<br/>
+            <a href="#"data-toggle="collapse" data-target="#demo">Xem toàn bộ</a><br/>
+            <div id="demo" class="collapse">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </div>
+
+
+        </div>
+
+        <div style="height:auto;margin-left:100px;float:left;">
+            <h3 style="margin-left:100px;"><a href="#">VIDEO|MV></a></h3>
+            <a href="#" style="text-decoration:none;">
+                <div style="border:1px solid black;width:150px;height:170px;float:left;margin-left:20px;">
+
+                    <img src="images/bcbs.jpg" style="width:100%;height:120px;" id="ha" onmouseover="sa()" onmouseout="sa1()"/>
+
+
+                    <span style="text-style:italic; text-shadow: 3px 2px;">Way Back Home</span><br/>
+                    <span style="text-style:italic; text-shadow: 3px 2px;">SHAUN</span>
+
+                </div>
+            </a>
+            <a href="#" style="text-decoration:none;">
+                <div style="border:1px solid black;width:150px;height:170px;float:left;margin-left:20px;">
+
+                    <img src="images/bcbs.jpg" style="width:100%;height:120px;" id="ha"/>
+
+
+                    <span style="text-style:italic; text-shadow: 3px 2px;">Way Back Home</span><br/>
+                    <span style="text-style:italic; text-shadow: 3px 2px;">SHAUN</span>
+
+                </div>
+            </a>
+
+            <div style="border:1px solid black;width:150px;height:170px;float:left;margin-left:20px;">
+                <a href="#" style="text-decoration:none;">
+                    <img src="images/bcbs.jpg" style="width:100%;height:120px;" id="ha"/><br/>
+                    <span style="text-style:italic; text-shadow: 3px 2px;">Way Back Home</span><br/>
+                    <span style="text-style:italic; text-shadow: 3px 2px;">SHAUN</span>
+                </a>
+            </div>
+            <div style="border:1px solid black;width:150px;height:170px;float:left;margin-left:20px;">
+                <a href="#" style="text-decoration:none;">
+                    <img src="images/bcbs.jpg" style="width:100%;height:120px;" id="ha" /><br/>
+                    <span style="text-style:italic; text-shadow: 3px 2px;">Way Back Home</span><br/>
+                    <span style="text-style:italic; text-shadow: 3px 2px;">SHAUN</span>
+                </a>
+            </div>
+
+            <div style="border:1px solid black;width:150px;height:170px;float:left;margin-left:20px;">
+                <a href="#" style="text-decoration:none;">
+                    <img src="images/bcbs.jpg" style="width:100%;height:120px;" id="ha" /><br/>
+                    <span style="text-style:italic; text-shadow: 3px 2px;">Way Back Home</span><br/>
+                    <span style="text-style:italic; text-shadow: 3px 2px;">SHAUN</span>
+                </a>
+            </div>
+
+            <div style="border:1px solid black;width:150px;height:170px;float:left;margin-left:20px;">
+                <a href="#" style="text-decoration:none;">
+                    <img src="images/bcbs.jpg" style="width:100%;height:120px;" id="ha" /><br/>
+                    <span style="text-style:italic; text-shadow: 3px 2px;">Way Back Home</span><br/>
+                    <span style="text-style:italic; text-shadow: 3px 2px;">SHAUN</span>
+                </a>
+            </div>
+        </div>
+        <div style="float:left;margin-top:10px;margin-left:100px;width:100%;height:auto;">
+            <ul class="list-group">
+                <li class="list-group-item"><h3 style="margin-left:100px;"><a href="#" style="text-decoration:none;">BÀI HÁT></a></h3></li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">asaas
+                    <span class="badge badge-primary badge-pill">12</span>
+                    <span><a href="#" style="text-decoration:none;"><img  src="images\dowload.png" style="width:35px;height:30px;text-decoration:none;"/></a></span>
+
+
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">asaas
+                    <span class="badge badge-primary badge-pill">12</span>
+                    <span><a href="#" style="text-decoration:none;"><img  src="images\them.png" style="width:35px;height:30px;text-decoration:none;"/></a></span>
+
+
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">asaas
+                    <span class="badge badge-primary badge-pill">12</span>
+                    <span><a href="#" style="text-decoration:none;"><img  src="images\share.png" style="width:35px;height:30px;text-decoration:none;"/></a></span>
+
+
+                </li>
+
+            </ul>
+        </div>
+        <div style="margin-left:100px;">
+            <h6 >BÌNH LUẬN</h6>
+            <div>
+                <img src="images/login.png" style="width:25px;height:25px;"/>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Nhập thông tin bình luận">
+                    <div class="input-group-append">
+                        <button class="btn btn-success"  style="height:40px;margin-top:5px;" type="submit">Gửi</button>
+                    </div>
+                    <div id="binhluan">
+
+
+                    </div>
+                </div>
+
+            </div>
+
+            <hr/>
+
+        </div>
+        <%})%>
+
+    </div>
+    <div id="navright">
+        <h2><a href="#" >CHỦ ĐỀ HOT></a></h2>
+        <img src="images\6.jpg"  height="130px" width="250px" >
+        <hr/>
+        <img src="images\7.jpg"  height="130px" width="250px" >
+        <hr/>
+        <img src="images\8.jpg"  height="130px" width="250px" ><hr/>
+
+
+
+    </div>
+
+    <div id="id01" class="modal">
+
+        <form class="modal-content animate" action="/action_page.php">
+
+            <div class="imgcontainer">
+                <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+
+            </div>
+            <div class="container">
+                <label for="uname"><b>Username</b></label>
+
+
+                <input type="text"  placeholder="Enter Username" name="uname" required>
+
+                <label for="psw"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="psw" required>
+
+                <button type="submit" class="buttonload"> <i class="fa fa-spinner fa-spin"></i>Login</button>
+                <label>
+                    <input type="checkbox" checked="checked" name="remember"> Remember me
+                </label>
+            </div>
+
+            <div class="container" style="background-color:#f1f1f1">
+                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+                <span class="psw">Forgot <a href="#">password?</a></span>
+            </div>
+        </form>
+    </div>
+    <div  id="id02" class="modal1">
+        <form action="/action_page.php" class="modal-content1 animate">
+            <div class="imgcontainer">
+                <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
+
+            </div>
+            <div class="container1">
+                <h1>Đăng ký thành viên</h1>
+                <p>Vui lòng điền đủ  thông tin vào form đăng ký thành viên.</p>
+                <hr>
+
+                <label for="email"><b>Email</b></label>
+                <input type="text" placeholder="Enter Email" name="email" required>
+                <label for="tenname"><b>Tên tài khoản</b></label>
+                <input type="password" placeholder="Enter Password" name="tenname" required>
+                <label for="psw"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="psw" required>
+
+                <label for="psw-repeat"><b>Repeat Password</b></label>
+                <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
+                <hr>
+                <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
+
+                <button type="submit" class="registerbtn">Register</button>
+            </div>
+
+
+        </form>
+
+
+    </div>
+
+    <script>
+        // Get the modal
+        var modal = document.getElementById('id01');
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+</div>
+
+
+
+
+<div id="footer">
+    <div id="thongtin">
+        <h4>Đơn vị chủ quản: Công ty Cổ phần Four-leaf Clover</h4>
+        Chủ sở hữu website: Tea </br>
+        Địa chỉ: Tòa nhà HAGL Safomec, 7/1 Thành Thái, P14, Q10, TP.HCM </br>
+        <hr  width="100%" size="1px" align="center" />
+        Email: support@nct.vn - Tel: (028) 3868 7979</br>
+        Giấy phép MXH số 499/GP-BTTTT do Bộ Thông Tin và Truyền thông cấp ngày 28/09/2015</br>
+        Giấy Chứng nhận Đăng ký Kinh doanh số 0305535715 do Sở kế hoạch và Đầu tư thành phố Hồ Chí Minh cấp ngày 01/03/2008</p>
+    </div>
+</div>
+</body>
+</HTML>

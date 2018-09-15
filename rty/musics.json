@@ -1,0 +1,25 @@
+[
+  {
+    "musicId":"M0001",
+    "info":{
+      "musicName":"Ha ha ha",
+      "author":"HoHo",
+      "kindofmusic":"pop",
+      "userName":"truong",
+      "image":"images/4.jpg",
+      "uploadDate":"09/08/2018",
+      "cmt":[
+        {
+          "userName":"thienstyle",
+          "text":"Nhạc như kẹc"
+        },
+        {
+          "userName":"truong",
+          "text":"Chém chết cmm"
+        }
+      ],
+      "url":"mp3/nap.mp3",
+      "counts":2
+    }
+  }
+]

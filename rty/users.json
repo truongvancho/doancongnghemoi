@@ -1,0 +1,18 @@
+[
+  {
+    "userName": "truong",
+    "info": {
+      "password": "123456",
+      "nickname": "Trương Lò Than",
+      "joinDate": "08-2018"
+    }
+  },
+  {
+    "userName": "thien",
+    "info": {
+      "password": "123456",
+      "nickname": "Trương Lò Than",
+      "joinDate": "08-2018"
+    }
+  }
+]
