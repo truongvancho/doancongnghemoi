@@ -3,6 +3,7 @@ var router = express.Router();
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var jsonParser = bodyParser.json();
+var session=require('express-session');
 var AWS = require("aws-sdk");
 
 AWS.config.update({
@@ -29,7 +30,7 @@ var params1 = {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
- // res.render('index', { title: 'Express' });
+    // res.render('index', { title: 'Express' });
     var a=[];
     docClient.scan(params, function (err,data) {
         if(err){
@@ -49,9 +50,9 @@ router.get('/', function(req, res, next) {
 router.post('/login',urlencodedParser,function (req,res,next) {
     var rt="";
     var a=[];
-  var uname=req.body.uname;
+    var uname=req.body.uname;
     var tendn1=uname.toLowerCase();
-  var psw=req.body.psw;
+    var psw=req.body.psw;
     var params2={
         TableName:"User",
         KeyConditionExpression:"#name=:ten",
@@ -62,36 +63,81 @@ router.post('/login',urlencodedParser,function (req,res,next) {
             ":ten":tendn1
         }
     };
- docClient.query(params2,function (err,data) {
-     if (err) {
-         console.log("Unable to query. Error:", JSON.stringify(err, null, 2));
-     } else{
-         data.Items.forEach(function (item) {
+    docClient.query(params2,function (err,data) {
+        if (err) {
+            console.log("Unable to query. Error:", JSON.stringify(err, null, 2));
+        } else{
+            data.Items.forEach(function (item) {
 
-             if(item.info.password==psw){
+                if(item.info.password==psw){
 
-                  docClient.scan(params, function (err,data) {
-                      if(err){
-                          console.log("error");
-                      }
-                      else {
-                          data.Items.forEach(function (item) {
-                              a.push(item);
-                              res.render("home",{ID:a,name:""+tendn1});
-                          })
-                      }
-                  });
-              }
+                    docClient.scan(params, function (err,data) {
+                        if(err){
+                            console.log("error");
+                        }
+                        else {
+                            data.Items.forEach(function (item) {
+                                a.push(item);
+                                res.render("home",{ID:a,name:""+tendn1});
+                            })
+                        }
+                    });
+                }
 
 
-         })
-     }
- })
+            })
+        }
+    })
 
 });
 router.get('/upload',function (req,res,next) {
-   res.render("upload");
+    res.render("upload");
 });
+router.get("/qwe",urlencodedParser,function (req,res) {
+
+    var tendn=req.query.tendn;
+    var tendn1=tendn.toLowerCase();
+    var tenname=req.query.tenname;
+    var psw=req.query.psw;
+    var s=req.query.s;
+    var mess="";
+    var params2={
+        TableName:"User",
+        KeyConditionExpression:"#name=:ten",
+        ExpressionAttributeNames:{
+            "#name":"userName"
+        },
+        ExpressionAttributeValues:{
+            ":ten":tendn1
+        }
+    };
+    var params3 = {
+        TableName:"User",
+        Item:{
+            "userName":tendn1,
+            "info":{
+                "password": psw,
+                "nickname": tenname,
+                "joinDate": s
+            }
+        }
+    };
+    docClient.put(params3, function(err, data) {
+        if (err) {
+            console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
+            res.render("qwe",{d:"khong thanh cong"+tendn1});
+
+        } else {
+            console.log("Added item:", JSON.stringify(data, null, 2));
+            mess+="thanh cong";
+            res.render("qwe",{d:"thay cong"+tendn1});
+        }
+    });
+
+
+
+});
+
 router.post('/newuser',urlencodedParser,function (req,res,next) {
     var dem=0;
     var tendn=req.body.tendn;
@@ -132,51 +178,7 @@ router.post('/newuser',urlencodedParser,function (req,res,next) {
         }
     });
 
- res.redirect("/");
-
-
-
-});
-router.get("/qwe",urlencodedParser,function (req,res) {
-
-    var tendn=req.query.tendn;
-    var tendn1=tendn.toLowerCase();
-    var tenname=req.query.tenname;
-    var psw=req.query.psw;
-    var s=req.query.s;
-    var mess="";
-    var params2={
-        TableName:"User",
-        KeyConditionExpression:"#name=:ten",
-        ExpressionAttributeNames:{
-            "#name":"userName"
-        },
-        ExpressionAttributeValues:{
-            ":ten":tendn1
-        }
-    };
-    var params3 = {
-        TableName:"User",
-        Item:{
-            "userName":tendn1,
-            "info":{
-                "password": psw,
-                "nickname": tenname,
-                "joinDate": s
-            }
-        }
-    };
-    docClient.put(params3, function(err, data) {
-        if (err) {
-            console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
-
-
-        } else {
-            console.log("Added item:", JSON.stringify(data, null, 2));
-            mess+="thanh cong";
-            res.render("qwe",{d:"thay cong"+tendn1});
-        }
-    });
+    res.redirect("/");
 
 
 
@@ -194,7 +196,7 @@ router.get('/chitiet',urlencodedParser,function (req,res,next) {
             ":yyyy":req.query.id
         }
     };
-  console.log(req.query.id);
+    console.log(req.query.id);
     docClient.query(params1,function (err,data) {
         if (err) {
             console.error("Unable to query. Error:", JSON.stringify(err, null, 2));
@@ -202,13 +204,10 @@ router.get('/chitiet',urlencodedParser,function (req,res,next) {
             console.log("Query succeeded.");
             data.Items.forEach(function(item) {
                 b.push(item);
-               res.render("videos",{video:b})
+                res.render("videos",{video:b})
             });
         }
     });
 });
 
-router.post('/insert',function (req,res) {
-    
-})
 module.exports = router;
