@@ -21,7 +21,7 @@
 
             <div class="inner relative">
 
-                <a class="logo" href="#"><img src="images\logoco.png" width="70px" height="50px" alt="Comfortable"></a>
+                <a class="logo" href="home"><img src="images\logoco.png" width="70px" height="50px" alt="Comfortable"></a>
 
                 <a id="menu-toggle" class="button dark" href="#"><i class="icon-reorder"></i></a>
 
@@ -136,26 +136,47 @@
 
 
 <div id="navright1">
-    <h1 style="color:#1E90FF;">UPLOAD BÀI HÁT,VIDEO</h1>
-    <form>
-        <span>Tên bài hát:</span><input type="text" style="width:100%;"/>
-        <span>Ca sĩ,diễn viên trình viễn::</span><input type="text" style="width:100%;"/></br>
-        Chọn file:
-        <div class="progress">
-            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="50"
-                 aria-valuemin="0" aria-valuemax="100" style="width:50%">
-                50% Complete (info)
-            </div>
-        </div><br/>
-
-        <input type="file"	/>
-        <br/>
-        <span>Thể loại</span><br/>
-        <select style="width:440px;">
-            <option>sấ</option>
-            <option>sấ</option>
-        </select><br/>
-        <button class="btn bnt-primary">TẢI BÀI HÁT LÊN</button>
+    <h1 style="color:#1E90FF;">UPLOAD BÀI HÁT</h1>
+    <form action="insert" method="post" enctype="multipart/form-data">
+        <table>
+            <tr style="border-bottom: 1px solid">
+                <td>Tên bài hát</td>
+                <td><input name="tenBh"></td>
+            </tr>
+            <tr style="border-bottom: 1px solid">
+                <td>Người trình</td>
+                <td><input name="tenBh"></td>
+            </tr>
+            <tr style="border-bottom: 1px solid">
+                <td>Tác giả</td>
+                <td><input name="tenBh"></td>
+            </tr>
+            <tr style="border-bottom: 1px solid">
+                <td>Quốc gia</td>
+                <td>
+                    <select name="quocGia">
+                        <option value="Âu Mỹ">Âu Mỹ</option>
+                        <option value="Hàn Quốc">Hàn Quốc</option>
+                        <option value="Trung Quốc">Trung Quốc</option>
+                        <option value="Nhật Bản">Nhật Bản</option>
+                        <option value="Việt Nam">Việt Nam</option>
+                        <option value="Khác">Khác</option>
+                    </select>
+                </td>
+            </tr>
+            <tr style="border-bottom: 1px solid">
+                <td>Upload File nhạc</td>
+                <td>
+                    <input type="file" name="file">
+                </td>
+            </tr>
+            <tr style="border-bottom: 1px solid">
+                <td></td>
+                <td>
+                    <button type="submit">Upload</button>
+                </td>
+            </tr>
+        </table>
 
     </form>
 </div>

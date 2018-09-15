@@ -32,7 +32,38 @@ exports.getMusicById = function(id,callback){
         if(err)
             console.log("Err: "+err);
         else{
+            console.log(data);
             callback(err,data);
+        }
+    })
+}
+var isTrung = function(id,callback){
+    var trung = false;
+    var params={
+        TableName: "Musics",
+        FilterExpression: "#id = :idM",
+        ExpressionAttributeNames: {
+            "#id": "musicId",
+        },
+        ExpressionAttributeValues: {
+            ":idM": id
+        }
+    }
+    docClient.scan(params,function(err,data){
+        if(err)
+            callback(err,trung);
+        else{
+            var count=0;
+            data.Items.forEach(function(item){
+                count++;
+            })
+            if(count>0){
+                trung = true;
+                callback(err,trung);
+            }   
+            else{
+                callback(err,trung);
+            }
         }
     })
 }
@@ -50,14 +81,26 @@ exports.insertMusic = function (data,callback) {
             }
         }
     }
-    docClient.put(music,function (err) {
-        if (err){
-            console.log("err:"+ err);
+    isTrung(data.idM,function(err,trung){
+        if(err)
+        console.log(err);
+        if(trung==false){
+            docClient.put(music,function (err) {
+                if (err){
+                    console.log(err);
+                    kq = false;
+                    callback(kq);
+                }
+                else{
+                    kq = true;
+                    callback(kq);
+                }
+            })
         }
         else{
-            kq = true;
-            callback(kq);
+            console.log("Trùng rồi ko add dc");
         }
     })
+    
 }
 

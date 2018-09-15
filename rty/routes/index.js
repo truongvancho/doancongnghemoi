@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
+var musicDAO = require("../dao/MusicDAO");
+var formidable = require('formidable');
+var path = require('path');
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var jsonParser = bodyParser.json();
 var session=require('express-session');
@@ -90,8 +93,60 @@ router.post('/login',urlencodedParser,function (req,res,next) {
     })
 
 });
+<<<<<<< HEAD
+router.get('/upload',function (req,res) {
+   res.render("upload",{title: "Upload Nhạc"});
+=======
 router.get('/upload',function (req,res,next) {
     res.render("upload");
+<<<<<<< HEAD
+>>>>>>> 432356a8c72c19e9108ba81b218fdf654eeff15d
+});
+router.get("/qwe",urlencodedParser,function (req,res) {
+
+    var tendn=req.query.tendn;
+    var tendn1=tendn.toLowerCase();
+    var tenname=req.query.tenname;
+    var psw=req.query.psw;
+    var s=req.query.s;
+    var mess="";
+    var params2={
+        TableName:"User",
+        KeyConditionExpression:"#name=:ten",
+        ExpressionAttributeNames:{
+            "#name":"userName"
+        },
+        ExpressionAttributeValues:{
+            ":ten":tendn1
+        }
+    };
+    var params3 = {
+        TableName:"User",
+        Item:{
+            "userName":tendn1,
+            "info":{
+                "password": psw,
+                "nickname": tenname,
+                "joinDate": s
+            }
+        }
+    };
+    docClient.put(params3, function(err, data) {
+        if (err) {
+            console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
+            res.render("qwe",{d:"khong thanh cong"+tendn1});
+
+        } else {
+            console.log("Added item:", JSON.stringify(data, null, 2));
+            mess+="thanh cong";
+            res.render("qwe",{d:"thay cong"+tendn1});
+        }
+    });
+
+
+
+});
+=======
 });
 router.get("/qwe",urlencodedParser,function (req,res) {
 
@@ -150,6 +205,7 @@ router.get("/qwe",urlencodedParser,function (req,res) {
 
 
 });
+>>>>>>> d5d2149ad12dde55d2ea888947ec1047ba964330
 
 router.post('/newuser',urlencodedParser,function (req,res,next) {
     var dem=0;
@@ -223,4 +279,49 @@ router.get('/chitiet',urlencodedParser,function (req,res,next) {
     });
 });
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+router.post('/insert',function (req,res) {
+    var form = new formidable.IncomingForm();
+    form.parse(req,function (err, fields, files) {
+        var tenBh = fields.tenBh;
+        var oldpath = files.file.path;
+        rand = Math.floor(Math.random()*Math.floor(1000000));
+        console.log(fields.quocGia);
+        console.log(fields)
+        var newpath = __dirname+"/public/musics/"+rand;
+        var urlMp3 = path.resolve(newpath).replace(/\\/g,'/');
+        /*
+        var data = {
+            idM: "M"+rand,
+            tenBh :fields.tenBh,
+            tacGia: fields.tacGia,
+            caSy: fields.caSy,
+            urlMp3: urlMp3
+        }
+        musicDAO.insertMusic(data,function (kq) {
+            if(kq==false){
+                res.send("Lỗi upload!");
+            }
+            else{
+                fs.rename(oldpath,newpath,function (err) {
+                    if(err)
+                        res.send("Lỗi upload!");
+                    else{
+                        res.send("Uploaded bài hát:"+tenBh+", tác giả: "+fields.tacGia+", ca sỹ : "+fields.caSy);
+                    }
+                })
+            }
+        });
+
+*/
+        console.log(newpath);
+        var a = "success";
+        res.render('upload',{data: a});
+    })
+})
+=======
+>>>>>>> 432356a8c72c19e9108ba81b218fdf654eeff15d
+=======
+>>>>>>> d5d2149ad12dde55d2ea888947ec1047ba964330
 module.exports = router;
