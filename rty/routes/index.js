@@ -163,4 +163,8 @@ router.get('/chitiet',urlencodedParser,function (req,res,next) {
         }
     });
 });
+
+router.post('/insert',function (req,res) {
+    
+})
 module.exports = router;
