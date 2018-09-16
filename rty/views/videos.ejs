@@ -130,19 +130,18 @@ alert("ssaass");
 <div id="nav">
     <div id="navleft">
         <%video.forEach(function (i) {%>
-        <h5 style="margin-left:70px;"><%=i.info.musicName%>-<%=i.info.author%></h5>
 
         <div style="background-color:#FFFAFA;margin-right:40px;margin-left:5px;height:530px;">
-            <video controls style="margin-left:100px;margin-top:40px;width:700px;">
-                <source src="<%=i.info.url%>" type="video/mp4">
+            <audio controls style="margin-left:100px;margin-top:40px;width:700px;">
+                <source src="<%=i.info.urlMp3%>" type="audio/mpeg">
 
 
-            </video>
+            </audio>
             <div style="position:relative;top:-120px;width:77%;margin-left:100px;background:rgba(0, 0, 0, 0.5);color: #f1f1f1;height:auto;">
                 <h6>Bài hát:</h6>
 
 
-                <%=i.info.musicName%>-<%=i.info.author%>
+                <%=i.info.tenBh%>-<%=i.info.tacGia%>
 
             </div>
             <span style="margin-left:100px;"><a href="#" style="text-decoration:none;"><img src="images\bcbs.jpg" style="width:35px;height:30px;"/>Upload bởi:Trương Cô Nương</a></span>
@@ -152,8 +151,8 @@ alert("ssaass");
 
         </div>
         <div style="width:710px;border:1px solid gray;margin-left:100px;">
-      <span><h6>Lời bài hát: <%=i.info.musicName%></h6>
-	  Nhạc sĩ:<%=i.info.author%>
+      <span><h6>Lời bài hát: <%=i.info.tenBh%></h6>
+	  Nhạc sĩ:<%=i.info.tacGia%>
 
 	  </span><br/>
 

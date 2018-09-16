@@ -291,7 +291,7 @@ router.post('/insert',function (req,res) {
             var kq= true;
             rand = Math.floor(Math.random()*Math.floor(1000000));
             var newpath = __dirname+"/../public/musics/"+rand+".mp3";
-            var urlMp3 = path.resolve(newpath).replace(/\\/g,'/');
+            var urlMp3 = "musics/"+rand+".mp3";
 
             var data = {
                 idM: "M"+rand,

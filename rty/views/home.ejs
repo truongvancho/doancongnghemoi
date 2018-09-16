@@ -190,11 +190,11 @@
         <div >
             <%ID.map(function(i){%>
             <a href="/chitiet?id=<%=i.musicId%>">
-                <div style="float: left;width:160px;height: 180px;">
-                    <img src="<%=i.info.image%>" style="height: 100px;height: 100px"/><br/>
-                    <p><%=i.info.musicName%></p>
-                    <p><%=i.info.author%></p>
+                <div id="nhac">
 
+                    <p><%=i.info.tenBh%> - <%=i.info.caSy%></p>
+                    <p>Tác giả: <%=i.info.tacGia%></p>
+                    <p>Quốc gia: <%=i.info.quocGia%></p>
                 </div>
             </a>
             <%})%>
