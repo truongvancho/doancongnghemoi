@@ -13,11 +13,17 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
 
-        var socket=io("http://localhost:3000/chitiet");
-      function traloi() {
-          socket.emit("tl", "hello asaddada");
-alert("ssaass");
-      }
+        var socket=io("http://localhost:3000");
+        function traloi() {
+            socket.emit("tl", "hello asaddada");
+            alert("ssaass");
+        }
+        $(document).ready(function () {
+            socket.on("respon",function (data) {
+                $("#binhluan").append("<div>"+data+""+"</div>"+"<br/>");
+            })
+        })
+
 
 
     </script>
@@ -261,17 +267,18 @@ alert("ssaass");
             <div>
                 <img src="images/login.png" style="width:25px;height:25px;"/>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="txtbinhluan" placeholder="Nhập thông tin bình luận">
+                    <input type="text" class="form-control" id="txtbinhluan" placeholder="Nhập thông tin bình luận" style="width:700px;">
                     <div class="input-group-append">
                         <button class="btn btn-success"  id="btnbinhluan" style="height:40px;margin-top:5px;" type="submit" onclick="traloi()">Gửi</button>
                     </div>
-                    <div id="binhluan">
+                    <div id="binhluan" style="float: left;">
 
-
+                        sassaas
                     </div>
                 </div>
 
             </div>
+
 
             <hr/>
 
