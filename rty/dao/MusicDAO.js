@@ -50,8 +50,11 @@ var isTrung = function(id,callback){
         }
     }
     docClient.scan(params,function(err,data){
-        if(err)
+        if(err){
+            console.log(err);
             callback(err,trung);
+        }
+
         else{
             var count=0;
             data.Items.forEach(function(item){
@@ -77,6 +80,7 @@ exports.insertMusic = function (data,callback) {
                 tenBh: data.tenBh,
                 tacGia: data.tacGia,
                 caSy: data.caSy,
+                quocGia: data.quocGia,
                 urlMp3: data.urlMp3
             }
         }
@@ -98,7 +102,8 @@ exports.insertMusic = function (data,callback) {
             })
         }
         else{
-            console.log("Trùng rồi ko add dc");
+            kq=false;
+            callback(kq);
         }
     })
     

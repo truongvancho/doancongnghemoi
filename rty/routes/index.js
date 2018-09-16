@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var musicDAO = require("../dao/MusicDAO");
 var formidable = require('formidable');
 var path = require('path');
+var fs = require('fs');
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var jsonParser = bodyParser.json();
 var session = require('express-session');
@@ -119,7 +120,7 @@ router.get('/upload',function (req,res) {
     if(req.session.out){
         req.session.username="";
     }
-    res.render("upload", {title: "Upload Nhạc",name: req.session.username});
+    res.render("upload", {title: "Upload Nhạc",name: req.session.username,xincho1lan:""});
 });
 
 router.get('/dangxuat',function (req,res) {
@@ -285,38 +286,39 @@ router.post('/insert',function (req,res) {
     form.parse(req,function (err, fields, files) {
         var tenBh = fields.tenBh;
         var oldpath = files.file.path;
-        rand = Math.floor(Math.random()*Math.floor(1000000));
-        console.log(fields.quocGia);
-        console.log(fields)
-        var newpath = __dirname+"/public/musics/"+rand;
-        var urlMp3 = path.resolve(newpath).replace(/\\/g,'/');
-        /*
-        var data = {
-            idM: "M"+rand,
-            tenBh :fields.tenBh,
-            tacGia: fields.tacGia,
-            caSy: fields.caSy,
-            urlMp3: urlMp3
-        }
-        musicDAO.insertMusic(data,function (kq) {
-            if(kq==false){
-                res.send("Lỗi upload!");
-            }
-            else{
-                fs.rename(oldpath,newpath,function (err) {
-                    if(err)
-                        res.send("Lỗi upload!");
-                    else{
-                        res.send("Uploaded bài hát:"+tenBh+", tác giả: "+fields.tacGia+", ca sỹ : "+fields.caSy);
-                    }
-                })
-            }
-        });
+        do{
 
-*/
-        console.log(newpath);
-        var a = "success";
-        res.render('upload',{data: a,name: req.session.username});
+            var kq= true;
+            rand = Math.floor(Math.random()*Math.floor(1000000));
+            var newpath = __dirname+"/../public/musics/"+rand+".mp3";
+            var urlMp3 = path.resolve(newpath).replace(/\\/g,'/');
+
+            var data = {
+                idM: "M"+rand,
+                tenBh :fields.tenBh,
+                tacGia: fields.tacGia,
+                caSy: fields.caSy,
+                quocGia: fields.quocGia,
+                urlMp3: urlMp3
+            }
+            musicDAO.insertMusic(data,function (rs) {
+                if(rs==false){
+                    kq=false;
+                    res.render('upload',{xincho1lan:"fail",name: req.session.username});
+                }
+                else{
+                    fs.rename(oldpath,newpath,function (err) {
+                        if(err){
+                            console.log(err);
+                            res.render('upload',{xincho1lan:"fail",name: req.session.username});
+                        }
+                        else{
+                            res.render('upload',{xincho1lan:"success",name: req.session.username});
+                        }
+                    })
+                }
+            });
+        }while(kq==false)
     })
 })
 
