@@ -19,7 +19,7 @@ exports.getAllMusic = function(){
             return data;
         }
     })
-    return count;
+    return "";
 }
 exports.getMusicById = function(id,callback){
     var params = {

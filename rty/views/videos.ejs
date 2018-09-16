@@ -9,7 +9,18 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
 
+        var socket=io("http://localhost:3000/chitiet");
+      function traloi() {
+          socket.emit("tl", "hello asaddada");
+alert("ssaass");
+      }
+
+
+    </script>
 
 </Head>
 
@@ -123,7 +134,7 @@
 
         <div style="background-color:#FFFAFA;margin-right:40px;margin-left:5px;height:530px;">
             <video controls style="margin-left:100px;margin-top:40px;width:700px;">
-                <source src="<%=i.url%>" type="video/mp4">
+                <source src="<%=i.info.url%>" type="video/mp4">
 
 
             </video>
@@ -223,18 +234,22 @@
                 <li class="list-group-item"><h3 style="margin-left:100px;"><a href="#" style="text-decoration:none;">BÀI HÁT></a></h3></li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">asaas
                     <span class="badge badge-primary badge-pill">12</span>
-                    <span><a href="#" style="text-decoration:none;"><img  src="images\dowload.png" style="width:35px;height:30px;text-decoration:none;"/></a></span>
-
-
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">asaas
-                    <span class="badge badge-primary badge-pill">12</span>
+                    <span><a href="#" style="text-decoration:none;"><img  src="images\dowload.png" style="width:35px;height:30px;text-decoration:none;margin-left: 390px;"/></a></span>
                     <span><a href="#" style="text-decoration:none;"><img  src="images\them.png" style="width:35px;height:30px;text-decoration:none;"/></a></span>
+                    <span><a href="#" style="text-decoration:none;"><img  src="images\share.png" style="width:35px;height:30px;text-decoration:none;"/></a></span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">asaas
+                    <span class="badge badge-primary badge-pill">12</span>
+                    <span><a href="#" style="text-decoration:none;"><img  src="images\dowload.png" style="width:35px;height:30px;text-decoration:none;margin-left: 390px;"/></a></span>
+                    <span><a href="#" style="text-decoration:none;"><img  src="images\them.png" style="width:35px;height:30px;text-decoration:none;"/></a></span>
+                    <span><a href="#" style="text-decoration:none;"><img  src="images\share.png" style="width:35px;height:30px;text-decoration:none;"/></a></span>
 
 
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">asaas
                     <span class="badge badge-primary badge-pill">12</span>
+                    <span><a href="#" style="text-decoration:none;"><img  src="images\dowload.png" style="width:35px;height:30px;text-decoration:none;margin-left: 390px;"/></a></span>
+                    <span><a href="#" style="text-decoration:none;"><img  src="images\them.png" style="width:35px;height:30px;text-decoration:none;"/></a></span>
                     <span><a href="#" style="text-decoration:none;"><img  src="images\share.png" style="width:35px;height:30px;text-decoration:none;"/></a></span>
 
 
@@ -247,9 +262,9 @@
             <div>
                 <img src="images/login.png" style="width:25px;height:25px;"/>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Nhập thông tin bình luận">
+                    <input type="text" class="form-control" id="txtbinhluan" placeholder="Nhập thông tin bình luận">
                     <div class="input-group-append">
-                        <button class="btn btn-success"  style="height:40px;margin-top:5px;" type="submit">Gửi</button>
+                        <button class="btn btn-success"  id="btnbinhluan" style="height:40px;margin-top:5px;" type="submit" onclick="traloi()">Gửi</button>
                     </div>
                     <div id="binhluan">
 

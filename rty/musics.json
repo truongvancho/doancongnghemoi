@@ -18,7 +18,30 @@
           "text":"Chém chết cmm"
         }
       ],
-      "url":"mp3/nap.mp3",
+      "url":"videos/EmSeDenCungConMuaLyricVideo-PhamAnhDuyHongVy-5645398.mp4",
+      "counts":2
+    }
+  },
+  {
+    "musicId":"M0002",
+    "info":{
+      "musicName":"Ha ha ha",
+      "author":"HoHo",
+      "kindofmusic":"hanquoc",
+      "userName":"thien",
+      "image":"images/4.jpg",
+      "uploadDate":"09/08/2018",
+      "cmt":[
+        {
+          "userName":"thienstyle",
+          "text":"Nhạc như kẹc"
+        },
+        {
+          "userName":"truong",
+          "text":"Chém chết cmm"
+        }
+      ],
+      "url":"videos/EmSeDenCungConMuaLyricVideo-PhamAnhDuyHongVy-5645398.mp4",
       "counts":2
     }
   }

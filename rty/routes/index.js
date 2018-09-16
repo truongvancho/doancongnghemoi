@@ -8,6 +8,7 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var jsonParser = bodyParser.json();
 var session = require('express-session');
 var AWS = require("aws-sdk");
+
 router.use(session({
     secret: 'keyboard cat',
     resave: false,
@@ -23,9 +24,7 @@ AWS.config.accessKeyId="AKIAIIVIX2PARDW5YT2A";
 AWS.config.secretAccessKey="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";
 var docClient = new AWS.DynamoDB.DocumentClient();
 
-var params = {
-    TableName: "Musics"
-};
+
 var params1 = {
     TableName: "Musics",
     KeyConditionExpression:"#yr=:yyyy",
@@ -40,22 +39,34 @@ var params1 = {
 /* GET home page. */
 router.get('/', function(req, res, next) {
     // res.render('index', { title: 'Express' });
-    var a=[];
+    var params = {
+        TableName: "Musics"
+    };
+    var b=[];
     docClient.scan(params, function (err,data) {
         if(err){
             console.log("error");
         }
         else {
             data.Items.forEach(function (item) {
-                a.push(item);
-                console.log(a);
-                res.render("home",{ID:a,name:req.session.username});
+
+           b.push(item);
+
+
+               /// res.render("home",{ID:a,name:req.session.username});
             })
+            console.log(b.length);
+            res.render("home",{ID:b,name:req.session.username});
         }
     });
 
 
+
+
+
+
 })
+
 router.post('/login',urlencodedParser,function (req,res,next) {
     var rt="";
     var a=[];
@@ -305,7 +316,7 @@ router.post('/insert',function (req,res) {
 */
         console.log(newpath);
         var a = "success";
-        res.render('upload',{data: a});
+        res.render('upload',{data: a,name: req.session.username});
     })
 })
 
