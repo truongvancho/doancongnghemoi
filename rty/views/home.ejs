@@ -20,7 +20,9 @@
             var s=d.getDay()+"-"+d.getMonth()+"-"+d.getFullYear();
             $.get("qwe",{tendn:tendn,tenname:tenname,psw:psw,da:s},function (data){
                 console.log(data);
-                alert(data);
+
+                   alert(data);
+
             })
         }
 
@@ -76,7 +78,7 @@
 
                         </li>
 
-                        <li><a href="#">Playlist</a></li>
+                        <li><a href="playlist">Playlist</a></li>
 
 
                         <li class="parent">
@@ -119,7 +121,7 @@
                         <li><a href="#"><%=name%></a>
                             <ul class="sub-menu">
 
-                                <li><a href="#">Đăng xuất</a></li>
+                                <li><a href="dangxuat" >Đăng xuất</a></li>
 
 
 

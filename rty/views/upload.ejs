@@ -9,7 +9,24 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
 
+        function newuser() {
+            var tendn=$("#tendn").val();
+            var tenname=$("#tenname").val();
+            var psw=$("#psw").val();
+            var d=new Date();
+            var s=d.getDay()+"-"+d.getMonth()+"-"+d.getFullYear();
+            $.get("qwe",{tendn:tendn,tenname:tenname,psw:psw,da:s},function (data){
+                console.log(data);
+
+                alert(data);
+
+            })
+        }
+
+    </script>
 
 </Head>
 
@@ -101,6 +118,17 @@
                                     <button class="btn btn-success"  style="height:40px;margin-top:5px;" type="submit">Go</button>
                                 </div>
                             </div>	</li>
+                        <li><a href="#"><%=name%></a>
+                            <ul class="sub-menu">
+
+                                <li><a href="dangxuat" >Đăng xuất</a></li>
+
+
+
+
+                            </ul>
+
+                        </li>
 
                     </ul>
 
@@ -126,7 +154,7 @@
         <hr/>
         <p>Video</p>
         <hr/>
-        <p>Lịch sử</p>
+        <p>Lich su</p>
         <hr/>
         <p>Đăng xuất</p>
 
@@ -247,7 +275,7 @@
     </form>
 </div>
 <div  id="id02" class="modal1">
-    <form action="/action_page.php" class="modal-content1 animate">
+    <form  class="modal-content1 animate">
         <div class="imgcontainer">
             <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
 
@@ -269,7 +297,7 @@
             <hr>
             <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
 
-            <button type="submit" class="registerbtn">Register</button>
+            <button type="submit" class="registerbtn" onclick="newuser()">Register</button>
         </div>
 
 

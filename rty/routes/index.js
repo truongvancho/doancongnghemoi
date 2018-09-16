@@ -6,8 +6,14 @@ var formidable = require('formidable');
 var path = require('path');
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var jsonParser = bodyParser.json();
-var session=require('express-session');
+var session = require('express-session');
 var AWS = require("aws-sdk");
+router.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge:60*1000*20*24 }
+}))
 
 AWS.config.update({
     region: "us-west-2",
@@ -43,7 +49,7 @@ router.get('/', function(req, res, next) {
             data.Items.forEach(function (item) {
                 a.push(item);
                 console.log(a);
-                res.render("home",{ID:a,name:""});
+                res.render("home",{ID:a,name:req.session.username});
             })
         }
     });
@@ -67,9 +73,7 @@ router.post('/login',urlencodedParser,function (req,res,next) {
         }
     };
     docClient.query(params2,function (err,data) {
-        if (err) {
-            console.log("Unable to query. Error:", JSON.stringify(err, null, 2));
-        } else{
+
             data.Items.forEach(function (item) {
 
                 if(item.info.password==psw){
@@ -81,73 +85,53 @@ router.post('/login',urlencodedParser,function (req,res,next) {
                         else {
                             data.Items.forEach(function (item) {
                                 a.push(item);
-                                res.render("home",{ID:a,name:""+tendn1});
+                                req.session.username=tendn1;
+                                if(req.session.out){
+                                    req.session.username="";
+                                }
+                               return  res.render("home",{ID:a,name:""+req.session.username});
                             })
                         }
                     });
                 }
+                else {
+                    res.redirect("/");
+                }
 
 
             })
-        }
+
     })
 
 });
-<<<<<<< HEAD
 router.get('/upload',function (req,res) {
-   res.render("upload",{title: "Upload Nhạc"});
-=======
-router.get('/upload',function (req,res,next) {
-    res.render("upload");
-<<<<<<< HEAD
->>>>>>> 432356a8c72c19e9108ba81b218fdf654eeff15d
+    if(req.session.out){
+        req.session.username="";
+    }
+    res.render("upload", {title: "Upload Nhạc",name: req.session.username});
 });
-router.get("/qwe",urlencodedParser,function (req,res) {
 
-    var tendn=req.query.tendn;
-    var tendn1=tendn.toLowerCase();
-    var tenname=req.query.tenname;
-    var psw=req.query.psw;
-    var s=req.query.s;
-    var mess="";
-    var params2={
-        TableName:"User",
-        KeyConditionExpression:"#name=:ten",
-        ExpressionAttributeNames:{
-            "#name":"userName"
-        },
-        ExpressionAttributeValues:{
-            ":ten":tendn1
-        }
-    };
-    var params3 = {
-        TableName:"User",
-        Item:{
-            "userName":tendn1,
-            "info":{
-                "password": psw,
-                "nickname": tenname,
-                "joinDate": s
-            }
-        }
-    };
-    docClient.put(params3, function(err, data) {
-        if (err) {
-            console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
-            res.render("qwe",{d:"khong thanh cong"+tendn1});
+router.get('/dangxuat',function (req,res) {
 
-        } else {
-            console.log("Added item:", JSON.stringify(data, null, 2));
-            mess+="thanh cong";
-            res.render("qwe",{d:"thay cong"+tendn1});
+
+    req.session.username="";
+    req.session.out="";
+    req.session.destroy((error)=>{
+        if(error){
+            console.log(error);
+        }
+        else{
+
+
+            console.log("thanh cong");
         }
     });
-
-
+   res.redirect("/");
 
 });
-=======
-});
+router.get("/playlist",function (req,res) {
+    res.render("playlist");
+})
 router.get("/qwe",urlencodedParser,function (req,res) {
 
     var tendn=req.query.tendn;
@@ -156,7 +140,7 @@ router.get("/qwe",urlencodedParser,function (req,res) {
     var psw=req.query.psw;
     var d=new Date();
 
-    var mess=d.getDay()+"-"+d.getMonth()+"-"+d.getFullYear();
+   var mess=""+d.getDay()+"-"+d.getMonth()+"-"+d.getFullYear();
     var params2={
         TableName:"User",
         KeyConditionExpression:"#name=:ten",
@@ -178,35 +162,42 @@ router.get("/qwe",urlencodedParser,function (req,res) {
             }
         }
     };
-    docClient.query(params2,function (err,data) {
-        if(err){
-            console.log(err);
-        }
-        else{
-            data.Items.forEach(function (item) {
+    docClient.query(params2, function(err, data) {
+        if (err) {
+            console.error("Unable to query. Error:", JSON.stringify(err, null, 2));
+        } else {
+            console.log("Query succeeded.");
+            data.Items.forEach(function(item) {
                 if(item.userName==tendn1){
-                    return  res.render("qwe",{d:"khong thanh cong"+tendn1});
+                   /// return res.render("qwe",{d:" khong thanh cong"+tendn1});
+                    return res.send("khong thanh cong");
                 }
+                else{
+                    docClient.put(params3, function(err, data) {
 
-                docClient.put(params3, function(err, data) {
+                            console.log("Added item:", JSON.stringify(data, null, 2));
+                            res.send("thanh cong");
 
-                    console.log("Added item:", JSON.stringify(data, null, 2));
-                    mess+="thanh cong";
-                    res.render("qwe",{d:"thanh cong"+tendn1});
+                          //  res.render("qwe",{d:"thanh cong"+tendn1});
 
-                });
-
-            })
+                    });
+                }
+            });
         }
+    });
 
-    })
+
+
+
+
+
+
+
 
 
 
 
 });
->>>>>>> d5d2149ad12dde55d2ea888947ec1047ba964330
-
 router.post('/newuser',urlencodedParser,function (req,res,next) {
     var dem=0;
     var tendn=req.body.tendn;
@@ -278,9 +269,6 @@ router.get('/chitiet',urlencodedParser,function (req,res,next) {
         }
     });
 });
-
-<<<<<<< HEAD
-<<<<<<< HEAD
 router.post('/insert',function (req,res) {
     var form = new formidable.IncomingForm();
     form.parse(req,function (err, fields, files) {
@@ -320,8 +308,5 @@ router.post('/insert',function (req,res) {
         res.render('upload',{data: a});
     })
 })
-=======
->>>>>>> 432356a8c72c19e9108ba81b218fdf654eeff15d
-=======
->>>>>>> d5d2149ad12dde55d2ea888947ec1047ba964330
+
 module.exports = router;
