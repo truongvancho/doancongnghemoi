@@ -5,6 +5,7 @@ var musicDAO = require("../dao/MusicDAO");
 var formidable = require('formidable');
 var path = require('path');
 var fs = require('fs');
+var validator = require('validator');
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var jsonParser = bodyParser.json();
 var session = require('express-session');
@@ -69,7 +70,7 @@ router.get('/', function(req, res, next) {
 })
 
 router.post('/login',urlencodedParser,function (req,res,next) {
-
+    var rt="";
     var a=[];
     var uname=req.body.uname;
     var tendn1=uname.toLowerCase();
@@ -84,38 +85,34 @@ router.post('/login',urlencodedParser,function (req,res,next) {
             ":ten":tendn1
         }
     };
-    var params = {
-        TableName: "Musics"
-    };
     docClient.query(params2,function (err,data) {
 
-        data.Items.forEach(function (item) {
+            data.Items.forEach(function (item) {
 
-            if(item.info.password==psw){
+                if(item.info.password==psw){
 
-                docClient.scan(params, function (err,data) {
-                    if(err){
-                        console.log("error");
-                    }
-                    else {
-                        data.Items.forEach(function (item) {
-                            a.push(item);
-                            req.session.username=tendn1;
-                            if(req.session.out){
-                                req.session.username="";
-                            }
+                    docClient.scan(params, function (err,data) {
+                        if(err){
+                            console.log("error");
+                        }
+                        else {
+                            data.Items.forEach(function (item) {
+                                a.push(item);
+                                req.session.username=tendn1;
+                                if(req.session.out){
+                                    req.session.username="";
+                                }
+                               return  res.render("home",{ID:a,name:""+req.session.username});
+                            })
+                        }
+                    });
+                }
+                else {
+                    res.redirect("/");
+                }
 
-                        })
-                        return  res.render("home",{ID:a,name:""+req.session.username});
-                    }
-                });
-            }
-            else {
-                res.redirect("/");
-            }
 
-
-        })
+            })
 
     })
 
@@ -124,7 +121,7 @@ router.get('/upload',function (req,res) {
     if(req.session.out){
         req.session.username="";
     }
-    res.render("upload", {title: "Upload Nhạc",name: req.session.username,xincho1lan:""});
+    res.render("upload", {title: "Upload Nhạc",noidung:"",name: req.session.username,xincho1lan:""});
 });
 
 router.get('/dangxuat',function (req,res) {
@@ -353,44 +350,50 @@ router.get('/chitiet',urlencodedParser,function (req,res,next) {
         }
     });
 });
+
 router.post('/insert',function (req,res) {
     var form = new formidable.IncomingForm();
     form.parse(req,function (err, fields, files) {
-        var tenBh = fields.tenBh;
+        var fileName = files.file.name;
         var oldpath = files.file.path;
-        do{
+        var patt = /^(\w|\W)*.(mp3|WAV)/i;
+        if(!patt.test(fileName)){
+            res.render("upload",{xincho1lan: "fail",noidung:"Chỉ được phép upload file nhạc!",name: req.session.username});
+        }
+        else{
+            do{
+                var kq= true;
+                rand = Math.floor(Math.random()*Math.floor(1000000));
+                var newpath = __dirname+"/../public/musics/"+rand+".mp3";
+                var urlMp3 = "musics/"+rand+".mp3";
 
-            var kq= true;
-            rand = Math.floor(Math.random()*Math.floor(1000000));
-            var newpath = __dirname+"/../public/musics/"+rand+".mp3";
-            var urlMp3 = "musics/"+rand+".mp3";
-
-            var data = {
-                idM: "M"+rand,
-                tenBh :fields.tenBh,
-                tacGia: fields.tacGia,
-                caSy: fields.caSy,
-                quocGia: fields.quocGia,
-                urlMp3: urlMp3
-            }
-            musicDAO.insertMusic(data,function (rs) {
-                if(rs==false){
-                    kq=false;
-                    res.render('upload',{xincho1lan:"fail",name: req.session.username});
+                var data = {
+                    idM: "M"+rand,
+                    tenBh :fields.tenBh,
+                    tacGia: fields.tacGia,
+                    caSy: fields.caSy,
+                    quocGia: fields.quocGia,
+                    urlMp3: urlMp3
                 }
-                else{
-                    fs.rename(oldpath,newpath,function (err) {
-                        if(err){
-                            console.log(err);
-                            res.render('upload',{xincho1lan:"fail",name: req.session.username});
-                        }
-                        else{
-                            res.render('upload',{xincho1lan:"success",name: req.session.username});
-                        }
-                    })
-                }
-            });
-        }while(kq==false)
+                musicDAO.insertMusic(data,function (rs) {
+                    if(rs==false){
+                        kq=false;
+                        res.render('upload',{xincho1lan:"fail",noidung:"Upload bài hát thất bại!",name: req.session.username});
+                    }
+                    else{
+                        fs.rename(oldpath,newpath,function (err) {
+                            if(err){
+                                console.log(err);
+                                res.render('upload',{xincho1lan:"fail",noidung:"Upload bài hát thất bại!",name: req.session.username});
+                            }
+                            else{
+                                res.render('upload',{xincho1lan:"success",noidung:"Upload bài hát thành công!",name: req.session.username});
+                            }
+                        })
+                    }
+                });
+            }while(kq==false)
+        }
     })
 })
 

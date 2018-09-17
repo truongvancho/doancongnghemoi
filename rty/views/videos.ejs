@@ -13,6 +13,7 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
 
+
         var socket=io("http://localhost:3000");
         function traloi() {
                var dn=$("#dn").val();
@@ -32,6 +33,8 @@
             })
         })
 
+
+      
 
 
     </script>
@@ -154,13 +157,13 @@
 
 </div>
 
-
+<div id="main">
 <div id="nav">
     <div id="navleft">
         <%video.forEach(function (i) {%>
 
         <div style="background-color:#FFFAFA;margin-right:40px;margin-left:5px;height:530px;">
-            <audio controls style="margin-left:100px;margin-top:40px;width:700px;">
+            <audio controls autoplay loop style="margin-left:100px;margin-top:40px;width:700px;">
                 <source src="<%=i.info.urlMp3%>" type="audio/mpeg">
 
 
@@ -292,6 +295,7 @@
                 <img src="images/login.png" style="width:25px;height:25px;"/>
 
                 <div class="input-group mb-3">
+<<<<<<< HEAD
                     <form>
                     <input type="text" class="form-control" id="txtbinhluan" placeholder="Nhập thông tin bình luận" style="width:700px;">
                     <%if(ss=="success"){%>
@@ -305,12 +309,19 @@
                             <%tn.forEach(function (i) {%>
                             <input type='text' disabled='true' style='width:700px;'  value='<%=i.userName%>:<%=i.text%>'/>
                             <%})%>
+=======
+                    <input type="text" class="form-control" id="txtbinhluan" placeholder="Nhập thông tin bình luận">
+                    <div class="input-group-append">
+                        <button class="btn btn-success"  id="btnbinhluan" style="height:40px;margin-top:5px;" type="submit" onclick="traloi()">Gửi</button>
+                    </div>
+                    <div id="binhluan">
+
+>>>>>>> 337245ec60f4efebc4a082c4ede4a603a7a58c9f
 
                     </div>
                 </div>
 
             </div>
-
 
             <hr/>
 
@@ -418,6 +429,7 @@
         Giấy phép MXH số 499/GP-BTTTT do Bộ Thông Tin và Truyền thông cấp ngày 28/09/2015</br>
         Giấy Chứng nhận Đăng ký Kinh doanh số 0305535715 do Sở kế hoạch và Đầu tư thành phố Hồ Chí Minh cấp ngày 01/03/2008</p>
     </div>
+</div>
 </div>
 </body>
 </HTML>

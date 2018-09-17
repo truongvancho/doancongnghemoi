@@ -18,7 +18,7 @@
 
             <div class="inner relative">
 
-                <a class="logo" href="home"><img src="images\logoco.png" width="70px" height="50px" alt="Comfortable"></a>
+                <a class="logo" href="/"><img src="images\logoco.png" width="70px" height="50px" alt="Comfortable"></a>
 
                 <a id="menu-toggle" class="button dark" href="#"><i class="icon-reorder"></i></a>
 
@@ -169,10 +169,10 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Thông báo</h4>
+                    <h4 class="modal-title">Thông báo lỗi</h4>
                 </div>
                 <div class="modal-body">
-                    <p>Upload bài hát thất bại!</p>
+                    <p><%=noidung%></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -186,15 +186,15 @@
         <table>
             <tr style="border-bottom: 1px solid">
                 <td>Tên bài hát</td>
-                <td><input name="tenBh"></td>
+                <td><input name="tenBh" required></td>
             </tr>
             <tr style="border-bottom: 1px solid">
                 <td>Người trình bày</td>
-                <td><input name="caSy"></td>
+                <td><input name="caSy" required><</td>
             </tr>
             <tr style="border-bottom: 1px solid">
                 <td>Tác giả</td>
-                <td><input name="tacGia"></td>
+                <td><input name="tacGia" required></td>
             </tr>
             <tr style="border-bottom: 1px solid">
                 <td>Quốc gia</td>
@@ -212,13 +212,13 @@
             <tr style="border-bottom: 1px solid">
                 <td>Upload File nhạc</td>
                 <td>
-                    <input type="file" name="file">
+                    <input type="file" name="file" required><label id="file"></label>
                 </td>
             </tr>
             <tr style="border-bottom: 1px solid">
                 <td></td>
                 <td>
-                    <button type="submit" >Upload</button>
+                    <button type="submit" onclick="check()">Upload</button>
                 </td>
             </tr>
         </table>
