@@ -21,10 +21,10 @@
 
             var  ma=$("#ma").val();
             socket.emit("tk",{mamusic:ma,admin:dn,nd1:sas,tkdn1:dn});
-             $.get("qwe1",{mamusic:ma,ad:dn,tinnhan:sas},function (data) {
-                 console.log(data);
-             })
-            $("#txtbinhluan").val("");
+            $.get("qwe1",{mamusic:ma,ad:dn,tinnhan:sas},function (data) {
+                console.log(data);
+            })
+
        document.getElementById("txtbinhluan").value="";
         }
         $(document).ready(function () {
@@ -34,7 +34,7 @@
         })
 
 
-      
+
 
 
     </script>
@@ -295,28 +295,19 @@
                 <img src="images/login.png" style="width:25px;height:25px;"/>
 
                 <div class="input-group mb-3">
-<<<<<<< HEAD
                     <form>
-                    <input type="text" class="form-control" id="txtbinhluan" placeholder="Nhập thông tin bình luận" style="width:700px;">
-                    <%if(ss=="success"){%>
-                        <div class="input-group-append">
-                            <button class="btn btn-success"  id="btnbinhluan" style="height:40px;margin-top:5px;" type="submit" onclick="traloi()">Gửi</button>
-                        </div>
-                    <%}%>
+                        <input type="text" class="form-control" id="txtbinhluan" placeholder="Nhập thông tin bình luận" style="width:700px;">
+                        <%if(ss=="success"){%>
+                            <div class="input-group-append">
+                                <button class="btn btn-success"  id="btnbinhluan" style="height:40px;margin-top:5px;" type="submit" onclick="traloi()">Gửi</button>
+                            </div>
+                        <%}%>
                     </form>
 
                     <div id="binhluan" style="float: left;">
-                            <%tn.forEach(function (i) {%>
-                            <input type='text' disabled='true' style='width:700px;'  value='<%=i.userName%>:<%=i.text%>'/>
-                            <%})%>
-=======
-                    <input type="text" class="form-control" id="txtbinhluan" placeholder="Nhập thông tin bình luận">
-                    <div class="input-group-append">
-                        <button class="btn btn-success"  id="btnbinhluan" style="height:40px;margin-top:5px;" type="submit" onclick="traloi()">Gửi</button>
-                    </div>
-                    <div id="binhluan">
-
->>>>>>> 337245ec60f4efebc4a082c4ede4a603a7a58c9f
+                        <%tn.forEach(function (i) {%>
+                        <input type='text' disabled='true' style='width:700px;'  value='<%=i.userName%>:<%=i.text%>'/>
+                        <%})%>
 
                     </div>
                 </div>

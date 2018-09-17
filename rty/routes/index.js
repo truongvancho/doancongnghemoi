@@ -70,7 +70,7 @@ router.get('/', function(req, res, next) {
 })
 
 router.post('/login',urlencodedParser,function (req,res,next) {
-    var rt="";
+
     var a=[];
     var uname=req.body.uname;
     var tendn1=uname.toLowerCase();
@@ -85,34 +85,38 @@ router.post('/login',urlencodedParser,function (req,res,next) {
             ":ten":tendn1
         }
     };
+    var params = {
+        TableName: "Musics"
+    };
     docClient.query(params2,function (err,data) {
 
-            data.Items.forEach(function (item) {
+        data.Items.forEach(function (item) {
 
-                if(item.info.password==psw){
+            if(item.info.password==psw){
 
-                    docClient.scan(params, function (err,data) {
-                        if(err){
-                            console.log("error");
-                        }
-                        else {
-                            data.Items.forEach(function (item) {
-                                a.push(item);
-                                req.session.username=tendn1;
-                                if(req.session.out){
-                                    req.session.username="";
-                                }
-                               return  res.render("home",{ID:a,name:""+req.session.username});
-                            })
-                        }
-                    });
-                }
-                else {
-                    res.redirect("/");
-                }
+                docClient.scan(params, function (err,data) {
+                    if(err){
+                        console.log("error");
+                    }
+                    else {
+                        data.Items.forEach(function (item) {
+                            a.push(item);
+                            req.session.username=tendn1;
+                            if(req.session.out){
+                                req.session.username="";
+                            }
+
+                        })
+                        return  res.render("home",{ID:a,name:""+req.session.username});
+                    }
+                });
+            }
+            else {
+                res.redirect("/");
+            }
 
 
-            })
+        })
 
     })
 
@@ -310,7 +314,7 @@ router.post('/newuser',urlencodedParser,function (req,res,next) {
 });
 router.get('/chitiet',urlencodedParser,function (req,res,next) {
 
-    var b=[];
+
     var as;
     var params1 = {
         TableName: "Musics",
@@ -323,18 +327,20 @@ router.get('/chitiet',urlencodedParser,function (req,res,next) {
         }
     };
 
-    var c=[];
+
 
     console.log(req.query.id);
-    docClient.query(params1,function (err,data) {
-        if (err) {
-            console.error("Unable to query. Error:", JSON.stringify(err, null, 2));
-        } else {
-            console.log("Query succeeded.");
-            data.Items.forEach(function(item) {
+    docClient.query(params1, function (err,data) {
+        if(err){
+            console.log("error");
+        }
+        else {
+            data.Items.forEach(function (item) {
+                var b=[];
+                var c=[];
                 b.push(item);
-                item.info.cmt.forEach(function (sa) {
-                    c.push(sa);
+                item.info.cmt.forEach(function (as) {
+                    c.push(as);
                 })
                 if(typeof  req.session.username =="undefined"){
                     as="fail";
@@ -342,10 +348,10 @@ router.get('/chitiet',urlencodedParser,function (req,res,next) {
                 else{
                     as="success";
                 }
-                console.log(b);
                 console.log(c);
+                console.log("sesss"+req.session.username+"ss"+as+"ms"+req.query.id+"tn"+c);
                 res.render("videos",{video:b,name: req.session.username,ss:as,ms:req.query.id,tn:c});
-            });
+            })
 
         }
     });
