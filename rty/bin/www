@@ -8,7 +8,7 @@ var app = require('../app');
 var debug = require('debug')('rty:server');
 var http = require('http');
 
-
+var s;
 /**
  * Get port from environment and store in Express.
  */
@@ -28,18 +28,47 @@ var server = http.createServer(app);
 var io=require("socket.io")(server);
 server.listen(port);
 server.on('error', onError);
-server.on('listening', onListening);
+server.on('listening', onListening)
+var a=0;
+
 io.on("connection",function (socket) {
-
+     function asa(nd,un){
+         this.nd=nd;
+         this.un=un;
+     }
     console.log("co nguoi ket noi"+socket.id);
+    console.log(socket.adapter.rooms);
+var arr=[];
+socket.on("tk",function (data) {
+    socket.join(data.mamusic);
+    socket.phong=data.mamusic;
 
-    socket.on("tl",function (data) {
-        console.log(data);
-        io.sockets.emit("respon",data);
-    })
-    socket.on("disconnect",function(){
-        console.log(socket.id+"ngat ket noi");
-    });
+
+
+        io.sockets.in(socket.phong).emit("server-send",{un:data.tkdn1,nd:data.nd1});
+
+
+
+
+
+})
+
+   // socket.on("tk",function (data) {
+     //   a.push(data);
+   //     socket.Username=data;
+
+   //     console.log("sasasa"+data);
+
+
+   // })
+  //  socket.on("tl",function (data1) {
+
+   //     io.sockets.emit("respon",{un:data1.nd,nd:data1.tkdn});
+  //  })
+
+   // socket.on("disconnect",function(){
+     //   console.log(socket.id+"ngat ket noi");
+   // });
 })
 /**
  * Normalize a port into a number, string, or false.

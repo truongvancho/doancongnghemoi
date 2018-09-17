@@ -9,18 +9,28 @@ AWS.config.secretAccessKey="8f4wPRVRDx5TRveyZpFeiXKq9vaJI/YKQOrao584";
 var docClient = new AWS.DynamoDB.DocumentClient();
 var a=new Array();
 var params = {
-    TableName: "Musics"
+    TableName: "Musics",
+    KeyConditionExpression:"#id= :musid",
+    ExpressionAttributeNames:{
+        "#id":"musicId"
+    },
+    ExpressionAttributeValues:{
+        ":musid":"M0001"
+    }
 };
 
 console.log("Scanning");
-docClient.scan(params, function (err,data) {
+docClient.query(params, function (err,data) {
     if(err){
         console.log("error");
     }
     else {
         data.Items.forEach(function (item) {
-            console.log(item);
+         item.info.cmt.forEach(function (as) {
+             console.log(as);
+         })
         })
+
     }
 });
 

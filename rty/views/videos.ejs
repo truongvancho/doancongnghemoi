@@ -15,12 +15,20 @@
 
         var socket=io("http://localhost:3000");
         function traloi() {
-            socket.emit("tl", "hello asaddada");
-            alert("ssaass");
+               var dn=$("#dn").val();
+               var sas=$("#txtbinhluan").val();
+
+            var  ma=$("#ma").val();
+            socket.emit("tk",{mamusic:ma,admin:dn,nd1:sas,tkdn1:dn});
+             $.get("qwe1",{mamusic:ma,ad:dn,tinnhan:sas},function (data) {
+                 console.log(data);
+             })
+            $("#txtbinhluan").val("");
+       document.getElementById("txtbinhluan").value="";
         }
         $(document).ready(function () {
-            socket.on("respon",function (data) {
-                $("#binhluan").append("<div>"+data+""+"</div>"+"<br/>");
+            socket.on("server-send",function (data) {
+                $("#binhluan").append("<input type='text' disabled='true' style='width:700px;background-color: 'green''  value='"+data.un+":"+data.nd+"'/>");
             })
         })
 
@@ -118,6 +126,20 @@
                                     <button class="btn btn-success"  style="height:40px;margin-top:5px;" type="submit">Go</button>
                                 </div>
                             </div>	</li>
+                        <li>
+                            <input type="hidden" value="<%=name%>" id="dn" name="dn"/>
+                            <input type="hidden" value="<%=ms%>" id="ma" name="ma"/>
+                            <a href="#"><%=name%></a>
+                            <ul class="sub-menu">
+
+                                <li><a href="dangxuat" >Đăng xuất</a></li>
+
+
+
+
+                            </ul>
+
+                        </li>
 
                     </ul>
 
@@ -264,16 +286,26 @@
         </div>
         <div style="margin-left:100px;">
             <h6 >BÌNH LUẬN</h6>
+
+
             <div>
                 <img src="images/login.png" style="width:25px;height:25px;"/>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="txtbinhluan" placeholder="Nhập thông tin bình luận" style="width:700px;">
-                    <div class="input-group-append">
-                        <button class="btn btn-success"  id="btnbinhluan" style="height:40px;margin-top:5px;" type="submit" onclick="traloi()">Gửi</button>
-                    </div>
-                    <div id="binhluan" style="float: left;">
 
-                        sassaas
+                <div class="input-group mb-3">
+                    <form>
+                    <input type="text" class="form-control" id="txtbinhluan" placeholder="Nhập thông tin bình luận" style="width:700px;">
+                    <%if(ss=="success"){%>
+                        <div class="input-group-append">
+                            <button class="btn btn-success"  id="btnbinhluan" style="height:40px;margin-top:5px;" type="submit" onclick="traloi()">Gửi</button>
+                        </div>
+                    <%}%>
+                    </form>
+
+                    <div id="binhluan" style="float: left;">
+                            <%tn.forEach(function (i) {%>
+                            <input type='text' disabled='true' style='width:700px;'  value='<%=i.userName%>:<%=i.text%>'/>
+                            <%})%>
+
                     </div>
                 </div>
 

@@ -21,6 +21,33 @@ exports.getAllMusic = function(){
     })
     return "";
 }
+exports.getmusicndc=function(id){
+    var b=[];
+    var params = {
+        TableName: "Musics",
+        KeyConditionExpression:"#id= :musid",
+        ExpressionAttributeNames:{
+            "#id":"musicId"
+        },
+        ExpressionAttributeValues:{
+            ":musid":id
+        }
+    };
+    docClient.query(params, function (err,data) {
+        if(err){
+            console.log("error");
+        }
+        else {
+            data.Items.forEach(function (item) {
+                item.info.cmt.forEach(function (sa) {
+                    b.push(sa);
+                })
+            })
+            return b;
+        }
+    });
+    return "";
+}
 exports.getMusicById = function(id,callback){
     var params = {
         TableName:"Musics",

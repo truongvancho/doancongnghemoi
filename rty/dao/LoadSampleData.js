@@ -16,7 +16,7 @@ var allPlaylist = JSON.parse(fs.readFileSync('playlists.json','utf8'));
 var allMovies = JSON.parse(fs.readFileSync('moviedata.json', 'utf8'));
 allUsers.forEach(function(user) {
     var users = {
-        TableName: "Users",
+        TableName: "User",
         Item: {
             "userName": user.userName,
             "info": user.info

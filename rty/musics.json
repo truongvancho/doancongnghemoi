@@ -2,12 +2,14 @@
   {
     "musicId":"M0001",
     "info":{
-      "musicName":"Ha ha ha",
-      "author":"HoHo",
-      "kindofmusic":"pop",
+      "tenBh":"Ha ha ha",
+      "tacGia":"HoHo",
+      "caSy":"My Tam",
+      "quocGia":"Viet Nam",
+      "urlMp3":"mp3/nap.mp3",
       "userName":"truong",
-      "image":"images/4.jpg",
-      "uploadDate":"09/08/2018",
+      "hinhanh":"images/4.jpg",
+
       "cmt":[
         {
           "userName":"thienstyle",
@@ -17,20 +19,21 @@
           "userName":"truong",
           "text":"Chém chết cmm"
         }
-      ],
-      "url":"videos/EmSeDenCungConMuaLyricVideo-PhamAnhDuyHongVy-5645398.mp4",
-      "counts":2
+      ]
+
     }
   },
   {
     "musicId":"M0002",
     "info":{
-      "musicName":"Ha ha ha",
-      "author":"HoHo",
-      "kindofmusic":"hanquoc",
-      "userName":"thien",
-      "image":"images/4.jpg",
-      "uploadDate":"09/08/2018",
+      "tenBh":"Ha ha ha",
+      "tacGia":"HoHo",
+      "caSy":"My Tam",
+      "quocGia":"Viet Nam",
+      "urlMp3":"mp3/nap.mp3",
+      "userName":"truong",
+      "hinhanh":"images/4.jpg",
+
       "cmt":[
         {
           "userName":"thienstyle",
@@ -40,9 +43,8 @@
           "userName":"truong",
           "text":"Chém chết cmm"
         }
-      ],
-      "url":"videos/EmSeDenCungConMuaLyricVideo-PhamAnhDuyHongVy-5645398.mp4",
-      "counts":2
+      ]
+
     }
   }
 ]

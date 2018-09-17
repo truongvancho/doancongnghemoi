@@ -148,6 +148,58 @@ router.get('/dangxuat',function (req,res) {
 router.get("/playlist",function (req,res) {
     res.render("playlist");
 })
+router.get("/qwe1",urlencodedParser,function (req,res) {
+      var mamusic=req.query.mamusic;
+      var taikhoan=req.query.ad;
+      var noidungtinnhan=req.query.tinnhan;
+    var params = {
+        TableName: "Musics",
+        KeyConditionExpression:"#id= :musid",
+        ExpressionAttributeNames:{
+            "#id":"musicId"
+        },
+        ExpressionAttributeValues:{
+            ":musid":mamusic
+        }
+    };
+    var er={
+        "userName":taikhoan,
+        "text":noidungtinnhan
+    }
+    var arr=[];
+    docClient.query(params, function (err,data) {
+        if(err){
+            console.log("error");
+        }
+        else {
+            data.Items.forEach(function (item) {
+                item.info.cmt.forEach(function (sa) {
+                   arr.push(sa);
+                })
+                arr.push(er);
+               var saas={
+                   TableName: "Musics",
+                   Key:{
+                       "musicId":mamusic
+                   },
+                   UpdateExpression:"set info.cmt=:a",
+                   ExpressionAttributeValues:{
+                     ":a":arr
+                   },
+                   ReturnValue:"UPDATED_NEW"
+               };
+                docClient.update(saas, function(err, data) {
+                    if (err) {
+                        console.error("Unable to update item. Error JSON:", JSON.stringify(err, null, 2));
+                    } else {
+                        console.log("UpdateItem succeeded:", JSON.stringify(data, null, 2));
+                    }
+                });
+            })
+
+        }
+    });
+})
 router.get("/qwe",urlencodedParser,function (req,res) {
 
     var tendn=req.query.tendn;
@@ -262,6 +314,7 @@ router.post('/newuser',urlencodedParser,function (req,res,next) {
 router.get('/chitiet',urlencodedParser,function (req,res,next) {
 
     var b=[];
+    var as;
     var params1 = {
         TableName: "Musics",
         KeyConditionExpression:"#yr=:yyyy",
@@ -272,6 +325,9 @@ router.get('/chitiet',urlencodedParser,function (req,res,next) {
             ":yyyy":req.query.id
         }
     };
+
+    var c=[];
+
     console.log(req.query.id);
     docClient.query(params1,function (err,data) {
         if (err) {
@@ -280,8 +336,20 @@ router.get('/chitiet',urlencodedParser,function (req,res,next) {
             console.log("Query succeeded.");
             data.Items.forEach(function(item) {
                 b.push(item);
-                res.render("videos",{video:b})
+                item.info.cmt.forEach(function (sa) {
+                    c.push(sa);
+                })
+                if(typeof  req.session.username =="undefined"){
+                    as="fail";
+                }
+                else{
+                    as="success";
+                }
+                console.log(b);
+                console.log(c);
+                res.render("videos",{video:b,name: req.session.username,ss:as,ms:req.query.id,tn:c});
             });
+
         }
     });
 });
