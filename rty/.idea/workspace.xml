@@ -440,11 +440,16 @@
       </list>
     </option>
   </component>
+<<<<<<< HEAD
   <component name="RunManager" selected="Node.js.CreateTable.js">
     <configuration name="CreateTable.js (2)" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" nameIsGenerated="true" path-to-js-file="CreateTable.js" working-dir="$PROJECT_DIR$">
+=======
+  <component name="RunManager" selected="Node.js.LoadSampleData.js">
+    <configuration name="CreateTable.js (1)" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" nameIsGenerated="true" path-to-js-file="CreateTable.js" working-dir="$PROJECT_DIR$">
+>>>>>>> b2f747f78ed695a4d7e950ef9bb50a0f77d4fc0f
       <method v="2" />
     </configuration>
-    <configuration name="CreateTable.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" nameIsGenerated="true" path-to-js-file="CreateTable.js" working-dir="$PROJECT_DIR$">
+    <configuration name="CreateTable.js (2)" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" nameIsGenerated="true" path-to-js-file="CreateTable.js" working-dir="$PROJECT_DIR$">
       <method v="2" />
     </configuration>
     <configuration name="LoadSampleData.js (2)" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" nameIsGenerated="true" path-to-js-file="LoadSampleData.js" working-dir="$PROJECT_DIR$">
@@ -458,6 +463,7 @@
     </configuration>
     <list>
       <item itemvalue="Node.js.QueryMusic.js" />
+<<<<<<< HEAD
       <item itemvalue="Node.js.LoadSampleData.js (2)" />
       <item itemvalue="Node.js.CreateTable.js (2)" />
       <item itemvalue="Node.js.LoadSampleData.js" />
@@ -466,10 +472,23 @@
     <recent_temporary>
       <list>
         <item itemvalue="Node.js.CreateTable.js" />
+=======
+      <item itemvalue="Node.js.CreateTable.js (1)" />
+      <item itemvalue="Node.js.LoadSampleData.js (2)" />
+      <item itemvalue="Node.js.CreateTable.js (2)" />
+      <item itemvalue="Node.js.LoadSampleData.js" />
+    </list>
+    <recent_temporary>
+      <list>
+>>>>>>> b2f747f78ed695a4d7e950ef9bb50a0f77d4fc0f
         <item itemvalue="Node.js.LoadSampleData.js" />
         <item itemvalue="Node.js.CreateTable.js (2)" />
         <item itemvalue="Node.js.QueryMusic.js" />
         <item itemvalue="Node.js.LoadSampleData.js (2)" />
+<<<<<<< HEAD
+=======
+        <item itemvalue="Node.js.CreateTable.js (1)" />
+>>>>>>> b2f747f78ed695a4d7e950ef9bb50a0f77d4fc0f
       </list>
     </recent_temporary>
   </component>
